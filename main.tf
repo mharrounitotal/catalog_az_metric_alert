@@ -23,6 +23,18 @@ locals {
  #l_metric_alert_index = "${var.assie_webAppIndex}"   ### TOP FIX
  l_metric_alert_name  = "${local.l_cloud_code}${local.l_metric_alert_code}${local.l_tags["Environment"]}-${local.l_tags["ApplicationCode"]}-${local.l_metric_alert_index}"}
 
+# Action Group Monitor Creation
+resource "azurerm_monitor_action_group" "assie_action_group" {
+  count               = tonumber("${var.module_create == true ? 1 : 0}")
+  name                = "${var.action_group_name}"
+  resource_group_name = local.l_rg_name
+  short_name          = "${var.action_group_short_name}"
+
+  webhook_receiver {
+    name        = "${var.webhook_receiver_name}"
+    service_uri = "${var.webhook_receiver_uri}"
+  }
+}
 
 # CPU Alert
 module "create_cpu_alert"{
@@ -39,7 +51,7 @@ module "create_cpu_alert"{
     module_dimension_name     = "${var.module_cpu_dimension_name}"
     module_dimension_operator = "${var.module_cpu_dimension_operator}"
     module_dimension_values   = "${var.module_cpu_dimension_values}"
-    module_action_group_id    = "${var.module_action_group_id}"
+    module_action_group_id    = "${azurerm_monitor_action_group.assie_action_group.id}"
 }
 
 # RAM Alert
