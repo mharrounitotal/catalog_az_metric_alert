@@ -21,7 +21,7 @@ module "create_cpu_alert"{
     assie_rgName              = local.l_rg_name
     assie_rgLocation          = local.l_rg_location
     assie_rgTags              = local.l_tags
-    module_action_group_id    = "${var.action_group_id}"}
+    module_action_group_id    = "${var.action_group_id}"
     alert_code                = "cpu"
     alert_index               = "${var.alert_index}"
     scope_assie_vm_id         = "${var.vm_id}"
@@ -39,7 +39,7 @@ module "create_ram_alert"{
     assie_rgName              = local.l_rg_name
     assie_rgLocation          = local.l_rg_location
     assie_rgTags              = local.l_tags
-    module_action_group_id    = "${var.action_group_id}"}
+    module_action_group_id    = "${var.action_group_id}"
     alert_code                = "ram"
     alert_index               = "${var.alert_index}"
     scope_assie_vm_id         = "${var.vm_id}"
@@ -56,7 +56,7 @@ module "create_av_alert"{
     assie_rgName              = local.l_rg_name
     assie_rgLocation          = local.l_rg_location
     assie_rgTags              = local.l_tags
-    module_action_group_id    = "${var.action_group_id}"}
+    module_action_group_id    = "${var.action_group_id}"
     alert_code                = "av"
     alert_index               = "${var.alert_index}"
     scope_assie_vm_id         = "${var.vm_id}"
@@ -75,7 +75,7 @@ module "create_pvl_alert"{
     assie_rgName              = local.l_rg_name
     assie_rgLocation          = local.l_rg_location
     assie_rgTags              = local.l_tags
-    module_action_group_id    = "${var.action_group_id}"}
+    module_action_group_id    = "${var.action_group_id}"
     alert_code                = "pvl"
     alert_index               = "${var.alert_index}"
     scope_assie_vm_id         = "${var.vm_id}"
@@ -92,7 +92,7 @@ module "create_srt_alert"{
     assie_rgName              = local.l_rg_name
     assie_rgLocation          = local.l_rg_location
     assie_rgTags              = local.l_tags
-    module_action_group_id    = "${var.action_group_id}"}
+    module_action_group_id    = "${var.action_group_id}"
     alert_code                = "srt"
     alert_index               = "${var.alert_index}"
     scope_assie_vm_id         = "${var.vm_id}"
@@ -110,7 +110,7 @@ module "create_hret_alert"{
     assie_rgName              = local.l_rg_name
     assie_rgLocation          = local.l_rg_location
     assie_rgTags              = local.l_tags
-    module_action_group_id    = "${var.action_group_id}"}
+    module_action_group_id    = "${var.action_group_id}"
     alert_code                = "hret"
     alert_index               = "${var.alert_index}"
     scope_assie_vm_id         = "${var.vm_id}"
@@ -127,7 +127,7 @@ module "create_fr_alert"{
     assie_rgName              = local.l_rg_name
     assie_rgLocation          = local.l_rg_location
     assie_rgTags              = local.l_tags
-    module_action_group_id    = "${var.action_group_id}"}
+    module_action_group_id    = "${var.action_group_id}"
     alert_code                = "fr"
     alert_index               = "${var.alert_index}"
     scope_assie_vm_id         = "${var.vm_id}"
