@@ -49,7 +49,7 @@ variable "ram_threshold" {
 
 #Variables for Availability Alert
 variable "av_criteria_operator" {
-    default = "Less Than"
+    default = "LessThan"
 }
 
 variable "av_threshold" {
