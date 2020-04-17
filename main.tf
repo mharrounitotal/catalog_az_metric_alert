@@ -12,64 +12,40 @@ locals {
 
   l_rg_name           = "${var.assie_rgName}"
   l_rg_location       = "${var.assie_rgLocation}"
-
-
- ### Cloud Code
- l_cloud_code = "az"
-
- ### Calculate Application Insights Name
- 
- l_metric_alert_code  = "ca"
- #l_metric_alert_index = "${var.assie_webAppIndex}"   ### TOP FIX
- l_metric_alert_name  = "${local.l_cloud_code}${local.l_metric_alert_code}${local.l_tags["Environment"]}-${local.l_tags["ApplicationCode"]}-${local.l_metric_alert_index}"}
-
-# Action Group Monitor Creation
-resource "azurerm_monitor_action_group" "assie_action_group" {
-  count               = tonumber("${var.module_create == true ? 1 : 0}")
-  name                = "${var.action_group_name}"
-  resource_group_name = local.l_rg_name
-  short_name          = "${var.action_group_short_name}"
-
-  webhook_receiver {
-    name        = "${var.webhook_receiver_name}"
-    service_uri = "${var.webhook_receiver_uri}"
-  }
 }
 
 # CPU Alert
 module "create_cpu_alert"{
     source = "git::https://dev.azure.com/tgits-code/ASSIE%20AZURE/_git/az_alert?ref=master"
     module_create             = "${var.module_create}"
-    assie_rgName              = "${module.create_cpu_alert.outputRgName}" 
-    assie_rgTags              = "${module.create_cpu_alert.outputRgTags}"
-    module_severity           = "${var.module_severity}"
-    module_metric_namespace   = "${var.module_cpu_namespace}"
-    module_metric_name        = "${var.module_cpu_name}"
-    module_aggregation        = "${var.module_cpu_aggregation}"
-    module_operator           = "${var.module_cpu_operator}"
-    module_threshold          = "${var.module_cpu_threshold}"
-    module_dimension_name     = "${var.module_cpu_dimension_name}"
-    module_dimension_operator = "${var.module_cpu_dimension_operator}"
-    module_dimension_values   = "${var.module_cpu_dimension_values}"
-    module_action_group_id    = "${azurerm_monitor_action_group.assie_action_group.id}"
+    assie_rgName              = local.l_rg_name
+    assie_rgLocation          = local.l_rg_location
+    assie_rgTags              = local.l_tags
+    module_action_group_id    = "${var.action_group_id}"}
+    alert_code                = "cpu"
+    alert_index               = "${var.alert_index}"
+    scope_assie_vm_id         = "${var.vm_id}"
+    alert_description         = "cpu alert"
+    alert_severity            = "${var.module_severity}"
+    criteria_threshold        = "${var.cpu_threshold}"
+
 }
+
 
 # RAM Alert
 module "create_ram_alert"{
     source = "git::https://dev.azure.com/tgits-code/ASSIE%20AZURE/_git/az_alert?ref=master"
     module_create             = "${var.module_create}"
-    assie_rgName              = "${module.create_cpu_alert.outputRgName}" 
-    assie_rgTags              = "${module.create_cpu_alert.outputRgTags}"
-    module_severity           = "${var.module_severity}"
-    module_metric_namespace   = "${var.module_ram_namespace}"
-    module_metric_name        = "${var.module_ram_name}"
-    module_aggregation        = "${var.module_ram_aggregation}"
-    module_operator           = "${var.module_ram_operator}"
-    module_threshold          = "${var.module_ram_threshold}"
-    module_dimension_name     = "${var.module_ram_dimension_name}"
-    module_dimension_operator = "${var.module_ram_dimension_operator}"
-    module_dimension_values   = "${var.module_ram_dimension_values}"
-    module_action_group_id    = "${var.module_action_group_id}"
+    assie_rgName              = local.l_rg_name
+    assie_rgLocation          = local.l_rg_location
+    assie_rgTags              = local.l_tags
+    module_action_group_id    = "${var.action_group_id}"}
+    alert_code                = "ram"
+    alert_index               = "${var.alert_index}"
+    scope_assie_vm_id         = "${var.vm_id}"
+    alert_description         = "ram alert"
+    alert_severity            = "${var.module_severity}"
+    criteria_threshold        = "${var.ram_threshold}"
 }
 
 
@@ -77,18 +53,18 @@ module "create_ram_alert"{
 module "create_av_alert"{
     source = "git::https://dev.azure.com/tgits-code/ASSIE%20AZURE/_git/az_alert?ref=master"
     module_create             = "${var.module_create}"
-    assie_rgName              = "${module.create_cpu_alert.outputRgName}" 
-    assie_rgTags              = "${module.create_cpu_alert.outputRgTags}"
-    module_severity           = "${var.module_severity}"
-    module_metric_namespace   = "${var.module_av_namespace}"
-    module_metric_name        = "${var.module_av_name}"
-    module_aggregation        = "${var.module_av_aggregation}"
-    module_operator           = "${var.module_av_operator}"
-    module_threshold          = "${var.module_av_threshold}"
-    module_dimension_name     = "${var.module_av_dimension_name}"
-    module_dimension_operator = "${var.module_av_dimension_operator}"
-    module_dimension_values   = "${var.module_av_dimension_values}"
-    module_action_group_id    = "${var.module_action_group_id}"
+    assie_rgName              = local.l_rg_name
+    assie_rgLocation          = local.l_rg_location
+    assie_rgTags              = local.l_tags
+    module_action_group_id    = "${var.action_group_id}"}
+    alert_code                = "av"
+    alert_index               = "${var.alert_index}"
+    scope_assie_vm_id         = "${var.vm_id}"
+    alert_description         = "av alert"
+    alert_severity            = "${var.module_severity}"
+    criteria_operator         = "${var.av_criteria_operator}"
+    criteria_threshold        = "${var.av_threshold}"
+
 }
 
 
@@ -96,18 +72,16 @@ module "create_av_alert"{
 module "create_pvl_alert"{
     source = "git::https://dev.azure.com/tgits-code/ASSIE%20AZURE/_git/az_alert?ref=master"
     module_create             = "${var.module_create}"
-    assie_rgName              = "${module.create_cpu_alert.outputRgName}" 
-    assie_rgTags              = "${module.create_cpu_alert.outputRgTags}"
-    module_severity           = "${var.module_severity}"
-    module_metric_namespace   = "${var.module_pvl_namespace}"
-    module_metric_name        = "${var.module_pvl_name}"
-    module_aggregation        = "${var.module_pvl_aggregation}"
-    module_operator           = "${var.module_pvl_operator}"
-    module_threshold          = "${var.module_pvl_threshold}"
-    module_dimension_name     = "${var.module_pvl_dimension_name}"
-    module_dimension_operator = "${var.module_pvl_dimension_operator}"
-    module_dimension_values   = "${var.module_pvl_dimension_values}"
-    module_action_group_id    = "${var.module_action_group_id}"
+    assie_rgName              = local.l_rg_name
+    assie_rgLocation          = local.l_rg_location
+    assie_rgTags              = local.l_tags
+    module_action_group_id    = "${var.action_group_id}"}
+    alert_code                = "pvl"
+    alert_index               = "${var.alert_index}"
+    scope_assie_vm_id         = "${var.vm_id}"
+    alert_description         = "pvl alert"
+    alert_severity            = "${var.module_severity}"
+    criteria_threshold        = "${var.pvl_threshold}"
 }
 
 
@@ -115,18 +89,17 @@ module "create_pvl_alert"{
 module "create_srt_alert"{
     source = "git::https://dev.azure.com/tgits-code/ASSIE%20AZURE/_git/az_alert?ref=master"
     module_create             = "${var.module_create}"
-    assie_rgName              = "${module.create_cpu_alert.outputRgName}" 
-    assie_rgTags              = "${module.create_cpu_alert.outputRgTags}"
-    module_severity           = "${var.module_severity}"
-    module_metric_namespace   = "${var.module_srt_namespace}"
-    module_metric_name        = "${var.module_srt_name}"
-    module_aggregation        = "${var.module_srt_aggregation}"
-    module_operator           = "${var.module_srt_operator}"
-    module_threshold          = "${var.module_srt_threshold}"
-    module_dimension_name     = "${var.module_srt_dimension_name}"
-    module_dimension_operator = "${var.module_srt_dimension_operator}"
-    module_dimension_values   = "${var.module_srt_dimension_values}"
-    module_action_group_id    = "${var.module_action_group_id}"
+    assie_rgName              = local.l_rg_name
+    assie_rgLocation          = local.l_rg_location
+    assie_rgTags              = local.l_tags
+    module_action_group_id    = "${var.action_group_id}"}
+    alert_code                = "srt"
+    alert_index               = "${var.alert_index}"
+    scope_assie_vm_id         = "${var.vm_id}"
+    alert_description         = "srt alert"
+    alert_severity            = "${var.module_severity}"
+    criteria_threshold        = "${var.srt_threshold}"
+
 }
 
 
@@ -134,34 +107,33 @@ module "create_srt_alert"{
 module "create_hret_alert"{
     source = "git::https://dev.azure.com/tgits-code/ASSIE%20AZURE/_git/az_alert?ref=master"
     module_create             = "${var.module_create}"
-    assie_rgName              = "${module.create_cpu_alert.outputRgName}" 
-    assie_rgTags              = "${module.create_cpu_alert.outputRgTags}"
-    module_severity           = "${var.module_severity}"
-    module_metric_namespace   = "${var.module_hret_namespace}"
-    module_metric_name        = "${var.module_hret_name}"
-    module_aggregation        = "${var.module_hret_aggregation}"
-    module_operator           = "${var.module_hret_operator}"
-    module_threshold          = "${var.module_hret_threshold}"
-    module_dimension_name     = "${var.module_hret_dimension_name}"
-    module_dimension_operator = "${var.module_hret_dimension_operator}"
-    module_dimension_values   = "${var.module_hret_dimension_values}"
-    module_action_group_id    = "${var.module_action_group_id}"
+    assie_rgName              = local.l_rg_name
+    assie_rgLocation          = local.l_rg_location
+    assie_rgTags              = local.l_tags
+    module_action_group_id    = "${var.action_group_id}"}
+    alert_code                = "hret"
+    alert_index               = "${var.alert_index}"
+    scope_assie_vm_id         = "${var.vm_id}"
+    alert_description         = "hret alert"
+    alert_severity            = "${var.module_severity}"
+    criteria_threshold        = "${var.hret_threshold}"
+
 }
 
 # Failed requests
 module "create_fr_alert"{
     source = "git::https://dev.azure.com/tgits-code/ASSIE%20AZURE/_git/az_alert?ref=master"
     module_create             = "${var.module_create}"
-    assie_rgName              = "${module.create_cpu_alert.outputRgName}" 
-    assie_rgTags              = "${module.create_cpu_alert.outputRgTags}"
-    module_severity           = "${var.module_severity}"
-    module_metric_namespace   = "${var.module_fr_namespace}"
-    module_metric_name        = "${var.module_fr_name}"
-    module_aggregation        = "${var.module_fr_aggregation}"
-    module_operator           = "${var.module_fr_operator}"
-    module_threshold          = "${var.module_fr_threshold}"
-    module_dimension_name     = "${var.module_fr_dimension_name}"
-    module_dimension_operator = "${var.module_fr_dimension_operator}"
-    module_dimension_values   = "${var.module_fr_dimension_values}"
-    module_action_group_id    = "${var.module_action_group_id}"
+    assie_rgName              = local.l_rg_name
+    assie_rgLocation          = local.l_rg_location
+    assie_rgTags              = local.l_tags
+    module_action_group_id    = "${var.action_group_id}"}
+    alert_code                = "fr"
+    alert_index               = "${var.alert_index}"
+    scope_assie_vm_id         = "${var.vm_id}"
+    alert_description         = "fr alert"
+    alert_severity            = "${var.module_severity}"
+    criteria_aggregation      = "${var.fr_criteria_aggregation}"
+    criteria_threshold        = "${var.fr_threshold}"
+    
 }
