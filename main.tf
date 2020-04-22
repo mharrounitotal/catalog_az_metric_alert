@@ -76,7 +76,7 @@ module "create_pvl_alert"{
     assie_rgLocation          = local.l_rg_location
     assie_rgTags              = local.l_tags
     module_action_group_id    = "${var.action_group_id}"
-    alert_code                = "pvl"
+    alert_code                = "pageViews/duration"
     alert_index               = "${var.alert_index}"
     scope_assie_vm_id         = "${var.vm_id}"
     alert_description         = "pvl alert"
@@ -128,7 +128,7 @@ module "create_fr_alert"{
     assie_rgLocation          = local.l_rg_location
     assie_rgTags              = local.l_tags
     module_action_group_id    = "${var.action_group_id}"
-    alert_code                = "fr"
+    alert_code                = "requests/failed"
     alert_index               = "${var.alert_index}"
     scope_assie_vm_id         = "${var.vm_id}"
     alert_description         = "fr alert"
