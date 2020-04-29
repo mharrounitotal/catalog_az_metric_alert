@@ -32,35 +32,35 @@ module "create_cpu_alert"{
 }
 
 
-# RAM Alert
-module "create_ram_alert"{
+# 
+module "create_dros_alert"{
     source = "git::https://dev.azure.com/tgits-code/ASSIE%20AZURE/_git/az_alert?ref=master"
     module_create             = "${var.module_create}"
     assie_rgName              = local.l_rg_name
     assie_rgLocation          = local.l_rg_location
     assie_rgTags              = local.l_tags
     module_action_group_id    = "${var.action_group_id}"
-    alert_code                = "performanceCounters/memoryAvailableBytes"
+    alert_code                = "Disk Read Operations/Sec"
     alert_index               = "${var.alert_index}"
     scope_assie_vm_id         = "${var.vm_id}"
-    alert_description         = "Available memory alert"
+    alert_description         = "Disk Read Operations/Sec alert"
     alert_severity            = "${var.module_severity}"
     criteria_threshold        = "${var.ram_threshold}"
 }
 
 
-# Availability Alert
-module "create_av_alert"{
+# 
+module "create_dwos_alert"{
     source = "git::https://dev.azure.com/tgits-code/ASSIE%20AZURE/_git/az_alert?ref=master"
     module_create             = "${var.module_create}"
     assie_rgName              = local.l_rg_name
     assie_rgLocation          = local.l_rg_location
     assie_rgTags              = local.l_tags
     module_action_group_id    = "${var.action_group_id}"
-    alert_code                = "availabilityResults/availabilityPercentage"
+    alert_code                = "Disk Write Operations/Sec"
     alert_index               = "${var.alert_index}"
     scope_assie_vm_id         = "${var.vm_id}"
-    alert_description         = "Availability alert"
+    alert_description         = "Disk Write Operations/Sec alert"
     alert_severity            = "${var.module_severity}"
     criteria_operator         = "${var.av_criteria_operator}"
     criteria_threshold        = "${var.av_threshold}"
@@ -68,70 +68,70 @@ module "create_av_alert"{
 }
 
 
-# Page View Load Alert Creation 
-module "create_pvl_alert"{
+#  
+module "create_ddwb_alert"{
     source = "git::https://dev.azure.com/tgits-code/ASSIE%20AZURE/_git/az_alert?ref=master"
     module_create             = "${var.module_create}"
     assie_rgName              = local.l_rg_name
     assie_rgLocation          = local.l_rg_location
     assie_rgTags              = local.l_tags
     module_action_group_id    = "${var.action_group_id}"
-    alert_code                = "pageViews/duration"
+    alert_code                = "Data Disk Write Bytes/sec"
     alert_index               = "${var.alert_index}"
     scope_assie_vm_id         = "${var.vm_id}"
-    alert_description         = "pvl alert"
+    alert_description         = "Data Disk Write Bytes/sec alert"
     alert_severity            = "${var.module_severity}"
     criteria_threshold        = "${var.pvl_threshold}"
 }
 
 
-# Server Response Time Alert
-module "create_srt_alert"{
+# 
+module "create_ddrb_alert"{
     source = "git::https://dev.azure.com/tgits-code/ASSIE%20AZURE/_git/az_alert?ref=master"
     module_create             = "${var.module_create}"
     assie_rgName              = local.l_rg_name
     assie_rgLocation          = local.l_rg_location
     assie_rgTags              = local.l_tags
     module_action_group_id    = "${var.action_group_id}"
-    alert_code                = "requests/duration"
+    alert_code                = "Data Disk Read Bytes/sec"
     alert_index               = "${var.alert_index}"
     scope_assie_vm_id         = "${var.vm_id}"
-    alert_description         = "server response time alert"
+    alert_description         = "Data Disk Read Bytes/sec alert"
     alert_severity            = "${var.module_severity}"
     criteria_threshold        = "${var.srt_threshold}"
 
 }
 
 
-# HTTP request execution time
-module "create_hret_alert"{
+# 
+module "create_ddro_alert"{
     source = "git::https://dev.azure.com/tgits-code/ASSIE%20AZURE/_git/az_alert?ref=master"
     module_create             = "${var.module_create}"
     assie_rgName              = local.l_rg_name
     assie_rgLocation          = local.l_rg_location
     assie_rgTags              = local.l_tags
     module_action_group_id    = "${var.action_group_id}"
-    alert_code                = "performanceCounters/requestExecutionTime"
+    alert_code                = "Data Disk Read Operations/Sec"
     alert_index               = "${var.alert_index}"
     scope_assie_vm_id         = "${var.vm_id}"
-    alert_description         = "HTTP request execution time alert"
+    alert_description         = "Data Disk Read Operations/Sec alert"
     alert_severity            = "${var.module_severity}"
     criteria_threshold        = "${var.hret_threshold}"
 
 }
 
-# Failed requests
-module "create_fr_alert"{
+# 
+module "create_if_alert"{
     source = "git::https://dev.azure.com/tgits-code/ASSIE%20AZURE/_git/az_alert?ref=master"
     module_create             = "${var.module_create}"
     assie_rgName              = local.l_rg_name
     assie_rgLocation          = local.l_rg_location
     assie_rgTags              = local.l_tags
     module_action_group_id    = "${var.action_group_id}"
-    alert_code                = "requests/failed"
+    alert_code                = "Inbound Flows"
     alert_index               = "${var.alert_index}"
     scope_assie_vm_id         = "${var.vm_id}"
-    alert_description         = "Failed requests alert"
+    alert_description         = "Inbound Flows alert"
     alert_severity            = "${var.module_severity}"
     criteria_aggregation      = "${var.fr_criteria_aggregation}"
     criteria_threshold        = "${var.fr_threshold}"
