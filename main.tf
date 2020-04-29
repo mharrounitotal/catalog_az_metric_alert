@@ -22,9 +22,10 @@ module "create_cpu_alert"{
     assie_rgLocation          = local.l_rg_location
     assie_rgTags              = local.l_tags
     module_action_group_id    = "${var.action_group_id}"
-    alert_code                = "Percentage CPU"
+    alert_code                = "al-cpu"
     alert_index               = "${var.alert_index}"
     scope_assie_vm_id         = "${var.vm_id}"
+    metric_name               = "Percentage CPU"
     alert_description         = "cpu alert"
     alert_severity            = "${var.module_severity}"
     criteria_threshold        = "${var.cpu_threshold}"
@@ -40,10 +41,11 @@ module "create_dros_alert"{
     assie_rgLocation          = local.l_rg_location
     assie_rgTags              = local.l_tags
     module_action_group_id    = "${var.action_group_id}"
-    alert_code                = "Disk Read Operations/Sec"
+    alert_code                = "al-dros"
     alert_index               = "${var.alert_index}"
     scope_assie_vm_id         = "${var.vm_id}"
-    alert_description         = "Disk Read Operations/Sec alert"
+    metric_name               = "Disk Read Operations/Sec"
+    alert_description         = "Disk Read Operations/Sec Alert"
     alert_severity            = "${var.module_severity}"
     criteria_threshold        = "${var.ram_threshold}"
 }
@@ -57,9 +59,10 @@ module "create_dwos_alert"{
     assie_rgLocation          = local.l_rg_location
     assie_rgTags              = local.l_tags
     module_action_group_id    = "${var.action_group_id}"
-    alert_code                = "Disk Write Operations/Sec"
+    alert_code                = "al-dwos"
     alert_index               = "${var.alert_index}"
     scope_assie_vm_id         = "${var.vm_id}"
+    metric_name               = "Disk Write Operations/Sec"
     alert_description         = "Disk Write Operations/Sec alert"
     alert_severity            = "${var.module_severity}"
     criteria_operator         = "${var.av_criteria_operator}"
@@ -76,9 +79,10 @@ module "create_ddwb_alert"{
     assie_rgLocation          = local.l_rg_location
     assie_rgTags              = local.l_tags
     module_action_group_id    = "${var.action_group_id}"
-    alert_code                = "Data Disk Write Bytes/sec"
+    alert_code                = "al-ddwb"
     alert_index               = "${var.alert_index}"
     scope_assie_vm_id         = "${var.vm_id}"
+    metric_name               = "Data Disk Write Bytes/sec"
     alert_description         = "Data Disk Write Bytes/sec alert"
     alert_severity            = "${var.module_severity}"
     criteria_threshold        = "${var.pvl_threshold}"
@@ -93,9 +97,10 @@ module "create_ddrb_alert"{
     assie_rgLocation          = local.l_rg_location
     assie_rgTags              = local.l_tags
     module_action_group_id    = "${var.action_group_id}"
-    alert_code                = "Data Disk Read Bytes/sec"
+    alert_code                = "al-ddrb"
     alert_index               = "${var.alert_index}"
     scope_assie_vm_id         = "${var.vm_id}"
+    metric_name               = "Data Disk Read Bytes/sec"
     alert_description         = "Data Disk Read Bytes/sec alert"
     alert_severity            = "${var.module_severity}"
     criteria_threshold        = "${var.srt_threshold}"
@@ -111,9 +116,10 @@ module "create_ddro_alert"{
     assie_rgLocation          = local.l_rg_location
     assie_rgTags              = local.l_tags
     module_action_group_id    = "${var.action_group_id}"
-    alert_code                = "Data Disk Read Operations/Sec"
+    alert_code                = "al-ddro"
     alert_index               = "${var.alert_index}"
     scope_assie_vm_id         = "${var.vm_id}"
+    metric_name               = "Data Disk Read Operations/Sec"
     alert_description         = "Data Disk Read Operations/Sec alert"
     alert_severity            = "${var.module_severity}"
     criteria_threshold        = "${var.hret_threshold}"
@@ -128,11 +134,12 @@ module "create_if_alert"{
     assie_rgLocation          = local.l_rg_location
     assie_rgTags              = local.l_tags
     module_action_group_id    = "${var.action_group_id}"
-    alert_code                = "Inbound Flows"
+    alert_code                = "al-if"
     alert_index               = "${var.alert_index}"
     scope_assie_vm_id         = "${var.vm_id}"
     alert_description         = "Inbound Flows alert"
     alert_severity            = "${var.module_severity}"
+    metric_name               = "Inbound Flows"
     criteria_aggregation      = "${var.fr_criteria_aggregation}"
     criteria_threshold        = "${var.fr_threshold}"
     
