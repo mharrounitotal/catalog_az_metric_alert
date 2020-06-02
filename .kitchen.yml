@@ -1,0 +1,22 @@
+driver:
+  name: terraform
+  command_timeout: 1800
+  backend_configurations:
+    resource_group_name: "azrgy-cdptest-01"
+    storage_account_name: "azstycdpt01"
+    container_name: "azctycdpt01"
+    key: "catalog_az_metric_alert"
+
+provisioner:
+  name: terraform
+
+platforms:
+  - name: terraform
+
+suites:
+  - name: basic-example-pytest
+    driver:
+      root_module_directory: examples/basic-example/
+    verifier:
+      name: shell
+      command: pytest tests/integration/basic-example/*.py

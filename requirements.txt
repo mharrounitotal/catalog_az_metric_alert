@@ -1,0 +1,5 @@
+azure-mgmt-resource==9.0.0
+pytest==5.4.1
+azure.mgmt.monitor==0.4.0
+azure-cli-core==2.5.0
+azure-mgmt-sql==0.18.0

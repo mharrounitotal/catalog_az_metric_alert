@@ -1,83 +1,98 @@
-
-# General variables 
+### Variable module_create
 variable "module_create" {
-  description = "Does the resource need to be created? Possible values are true and false."
+  description = "Resource create"
+  type        = bool
   default     = true
 }
-
+### Assie variables 
 variable "assie_rgName" {
-	description = "Name of the resource group in which the key vault will be created"
-	type 		= string
-	default     = ""
+  description = "Link to an existing Resource Group"
+  type        = string
+  default     = "azrgy-cdptest-01"
 }
 
 variable "assie_rgLocation" {
-	description = " Location of the Resource Group"
-	type        = string
-	default     = ""
+  description = "Location of the Resource Group"
+  type        = string
+  default     = "westeurope"
 }
 
 variable "assie_rgTags" {
-	description = "Tags from the Resource Group"
+  description = "Tags from the Resource Group"
+  type        = map(any)
 }
 
-##general variable alert
 variable "action_group_id" {
-  default =""
+  default = "/subscriptions/c4d25d9f-d0ad-4b65-bb2e-2f3bcb8b4364/resourceGroups/azrgy-cdptest-01/providers/microsoft.insights/actionGroups/test-ac-kitchen"
 }
+
+variable "alert_code" {
+  type    = string
+  default = "Percentage CPU" #### metric name : Percentage CPU
+}
+
 variable "alert_index" {
+  type    = string
   default = "01"
 }
-variable "vm_id" {
-  default = ""
+
+variable "scope_assie_vm_id" {
+  description = "Scope VM ID"
+  type        = string
+  default     = "/subscriptions/c4d25d9f-d0ad-4b65-bb2e-2f3bcb8b4364/resourceGroups/azrgy-cdptest-01/providers/Microsoft.Compute/virtualMachines/testalertkit"
 }
 
-variable "module_severity" {
-  default = "4"
+variable "alert_description" {
+  description = "Alert Description"
+  type        = string
+  default     = ""
 }
 
-#Variables for Catalog Alert
-#Variables for CPU Alert
-variable "cpu_threshold" {
-    default = "75"
+variable "alert_severity" {
+  description = ""
+  type        = number
+  default     = 3
 }
 
-#Variables for RAM Alert
-variable "ram_threshold" {
-    default = "75"
+variable "criteria_metric_namespace" {
+  description = "Metric Namespace"
+  type        = string
+  default     = "Microsoft.Compute/virtualMachines"
 }
 
-#Variables for Availability Alert
-variable "av_criteria_operator" {
-    default = "LessThan"
+variable "criteria_aggregation" {
+  description = "Aggregation"
+  type        = string
+  default     = "Average"
 }
 
-variable "av_threshold" {
-    default = "90"
+variable "criteria_operator" {
+  description = "Operator"
+  type        = string
+  default     = "GreaterThan"
 }
 
-# variables for Page View Load Alert Creation 
-variable "pvl_threshold" {
-    default = "90"
+variable "criteria_threshold" {
+  description = "Threshold"
+  type        = number
+  default     = 50
 }
 
-#Variables for Server Response Time Alert
-variable "srt_threshold" {
-    default = "5"
+variable "dimension_name" {
+  description = "Dimension Name"
+  type        = string
+  default     = ""
 }
 
-#Variables for HTTP request execution time 
-variable "hret_threshold" {
-    default = "5"
+variable "dimension_operator" {
+  description = "Dimension Operator"
+  type        = string
+  default     = ""
 }
 
-
-#Variables for Failed Requests
-
-variable "fr_criteria_aggregation" {
-    default = "Count"
+variable "dimension_values" {
+  description = "Dimension Values"
+  type        = list(string)
+  default     = []
 }
 
-variable "fr_threshold" {
-    default = "2"
-}
