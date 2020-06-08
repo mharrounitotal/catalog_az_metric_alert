@@ -8,6 +8,7 @@ stages:
   jobs:
   - job: Kitchen
     steps:
+      - script: echo $(PATDEVOPS)
       - powershell: |
          git config --global credential.helper cache
          git config --global user.name PersonalAccessToken
