@@ -1,0 +1,44 @@
+
+variables:
+- group: azkvpxcmp02 # keyvault infra
+- group: azkvyccet01 # keyvault spn
+
+stages:
+- stage: Tests
+  jobs:
+  - job: Kitchen
+    steps:
+      - powershell: |
+         git config --global credential.helper cache
+         git config --global user.name PersonalAccessToken
+         git config --global user.password $(PATDEVOPS)
+         git config --global credential.helper store
+         git fetch #clone https://PersonalAccessToken:$(PATDEVOPS)@dev.azure.com/tgits-code/ASSIE%20AZURE/_git/catalog_az_subnet -b dev
+        displayName: 'Setup Git Credential'
+
+      - task: UseRubyVersion@0
+        inputs:
+          versionSpec: '= 2.6.6'
+      - task: TerraformInstaller@0
+        inputs:
+          terraformVersion: '0.12.24'
+
+      - bash: bundle install
+        displayName: 'Install Ruby deps'
+
+      - task: UsePythonVersion@0
+        inputs:
+          versionSpec: '3.6'
+          addToPath: true
+          architecture: 'x64'
+
+      - bash: pip3 install -r requirements.txt
+        displayName: 'Install Python deps'
+
+      - bash: bundle exec kitchen test
+        displayName: 'Kitchen test'
+        env:
+          ARM_CLIENT_ID: $(SPN--Infra--RG--AppID)
+          ARM_CLIENT_SECRET: $(SPN--Infra--RG--Secret)
+          ARM_TENANT_ID: '329e91b0-e21f-48fb-a071-456717ecc28e'
+          ARM_SUBSCRIPTION_ID: '01c5ef27-8e1a-4ad1-8b64-abbbe269ce6d'
