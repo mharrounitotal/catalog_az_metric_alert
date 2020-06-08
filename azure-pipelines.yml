@@ -8,7 +8,7 @@ stages:
          git config --global user.name PersonalAccessToken
          git config --global user.password $(PATDEVOPS)
          git config --global credential.helper store
-         git fetch #clone https://PersonalAccessToken:$(PATDEVOPS)@dev.azure.com/tgits-code/ASSIE%20AZURE/_git/catalog_az_subnet -b dev
+         git clone https://PersonalAccessToken:$(PATDEVOPS)@dev.azure.com/tgits-code/ASSIE%20AZURE/_git/catalog_az_subnet -b dev
         displayName: 'Setup Git Credential'
 
       - task: UseRubyVersion@0
