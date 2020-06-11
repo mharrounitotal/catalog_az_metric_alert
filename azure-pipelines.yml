@@ -1,5 +1,6 @@
 variables:
 - group: KV_PAT # PAT
+- group: KV_CMP
 
 stages:
 - stage: Tests
@@ -35,7 +36,7 @@ stages:
       - bash: bundle exec kitchen test
         displayName: 'Kitchen test'
         env:
-          # ARM_CLIENT_ID: $(SPN--Infra--RG--AppID)
-          # ARM_CLIENT_SECRET: $(SPN--Infra--RG--Secret)
+          ARM_CLIENT_ID: $(CLIENTXINFIDP)
+          ARM_CLIENT_SECRET: $(CLIENTXINFSECP)
           ARM_TENANT_ID: '329e91b0-e21f-48fb-a071-456717ecc28e'
           ARM_SUBSCRIPTION_ID: 'c4d25d9f-d0ad-4b65-bb2e-2f3bcb8b4364'
