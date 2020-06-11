@@ -18,8 +18,9 @@ stages:
       - task: UseRubyVersion@0
         inputs:
           versionSpec: '= 2.6.6'
-      - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
-        displayName: 'Install Terraform 0.12.24'
+      -- task: TerraformInstaller@0
+        inputs:
+          terraformVersion: '0.12.24'
   
       - bash: bundle install
         displayName: 'Install Ruby deps'
