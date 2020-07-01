@@ -34,7 +34,7 @@ stages:
       - bash: pip3 install -r requirements.txt
         displayName: 'Install Python deps'
 
-      - bash: bundle exec kitchen test
+      - bash: bundle exec kitchen converge
         displayName: 'Kitchen test'
         env:
           ARM_CLIENT_ID: $(CLIENTXINFIDP)
