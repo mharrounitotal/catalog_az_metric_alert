@@ -39,3 +39,8 @@ jobs:
 
     - name: Kitchen test
       run: bundle exec kitchen test
+      env:
+          ARM_CLIENT_ID: ${{ secrets.CLIENTXINFIDP }}
+          ARM_CLIENT_SECRET: ${{ secrets.CLIENTXINFSECP }}
+          ARM_TENANT_ID: '329e91b0-e21f-48fb-a071-456717ecc28e'
+          ARM_SUBSCRIPTION_ID: 'c4d25d9f-d0ad-4b65-bb2e-2f3bcb8b4364'
