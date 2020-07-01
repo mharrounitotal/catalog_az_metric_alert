@@ -1,6 +1,6 @@
 variables:
 - group: KV_PAT # PAT
-- group: KV_CMP
+- group: KV_CMP #
 
 stages:
 - stage: Tests
