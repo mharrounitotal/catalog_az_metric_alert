@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [ github-actions ]
+  pull_request:
+    branches: [ v0 ]
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - uses: actions/checkout@v2
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.6.6
+
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 0.12.24
+        
+    - name: Install Ruby deps
+      run: bundle install
+    
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.6'
+        architecture: 'x64'
+        
+    - name: Install Python deps
+      run: pip3 install -r requirements.txt
+
+    - name: Kitchen test
+      run: bundle exec kitchen test
