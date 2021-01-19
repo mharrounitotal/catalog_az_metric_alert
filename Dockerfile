@@ -1,4 +1,4 @@
-ROM debian:9.5-slim
+FROM debian:9.5-slim
  
 ADD entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
